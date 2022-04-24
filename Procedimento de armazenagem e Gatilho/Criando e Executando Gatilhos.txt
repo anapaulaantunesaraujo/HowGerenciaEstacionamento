@@ -1,0 +1,48 @@
+------CRIANDO GATILHO
+CREATE TRIGGER trg_AlteraSaldoConta
+
+ON MOVIMENTACAOFINANCEIRA
+FOR INSERT
+AS 
+BEGIN
+
+DECLARE @VALOR DECIMAL(10,5),
+        @CONTA INT,
+		@TIPO INT
+
+
+   SELECT @CONTA = id_contacliente, 
+          @VALOR = valor, 
+		  @TIPO = id_tipomovimentacao 
+     FROM INSERTED
+
+   UPDATE CONTACLIENTE
+   SET saldo_atual = saldo_atual - @VALOR
+   WHERE id_contacliente = @CONTA
+     AND @TIPO = 2;
+
+   UPDATE CONTACLIENTE
+   SET saldo_atual = saldo_atual + @VALOR
+   WHERE id_contacliente = @CONTA
+     AND @TIPO = 1;
+
+END
+GO
+
+------EXECUTANDO GATILHO INSERINDO DADOS NA TABELA MOVIMENTACAO FINANCEIRA
+
+INSERT INTO MOVIMENTACAOFINANCEIRA
+(id_tipomovimentacao,data_movimentacao,valor,id_contacliente)
+VALUES
+(1, '2022-04-01 13:25:13', 567.44, 1)
+
+INSERT INTO MOVIMENTACAOFINANCEIRA
+(id_tipomovimentacao,data_movimentacao,valor,id_contacliente)
+VALUES
+(2, '2022-04-08 15:21:13', 10.00, 1)
+
+
+------CONSULTANDO RESULTADO 
+SELECT * FROM CONTACLIENTE
+
+SELECT * FROM MOVIMENTACAOFINANCEIRA

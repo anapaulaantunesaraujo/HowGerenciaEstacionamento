@@ -1,0 +1,32 @@
+----- CRIANDO PROCEDIMENTO DE ARMAZENAGEM
+
+CREATE PROCEDURE percentualOcupacaoFilial (@Filial AS INT)
+
+AS
+
+SELECT CAST((
+              CAST(
+			        isnull(
+					        (
+							  SELECT COUNT(DISTINCT A.id_vaga)
+                                FROM VAGA A
+                               INNER JOIN PATIO B ON B.id_patio = A.id_patio
+				                WHERE B.id_filial = @Filial
+				                  AND A.status = 'Ocupada'
+							 ),0) AS DECIMAL (5,2))
+             /
+              CAST(
+			        isnull(
+					        (
+							  SELECT COUNT(DISTINCT A.id_vaga)
+                                FROM VAGA A
+                               INNER JOIN PATIO B ON B.id_patio = A.id_patio
+				                WHERE B.id_filial = @Filial
+							 ),0) AS DECIMAL (5,2)) 
+	         ) * 100 AS DECIMAL(5,2)
+			) 'Ocupação'   
+;
+
+----- EXECUTANDO PROCEDIMENTO DE ARMAZENAGEM
+
+EXEC percentualOcupacaoFilial @Filial = 1;
