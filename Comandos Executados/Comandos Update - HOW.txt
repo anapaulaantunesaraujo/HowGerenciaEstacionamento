@@ -1,0 +1,23 @@
+------UPDATE
+
+UPDATE CLIENTE
+SET data_nascimento = '1990-11-30'
+WHERE id_cliente = 1
+
+UPDATE VEICULO
+SET id_marcaveiculo = 4,
+id_modeloveiculo = 5
+WHERE id_cliente = 1
+AND placa = 'AMV1362'
+
+UPDATE ENDERECOFUNCIONARIO
+SET id_bairro = 12
+WHERE id_funcionario = 1
+
+UPDATE ENDERECOCLIENTE
+SET complemento = 'Casa 1'
+WHERE id_cliente = 1
+
+UPDATE FUNCIONARIO
+SET cargo = 'DBA'
+WHERE id_funcionario = 1
