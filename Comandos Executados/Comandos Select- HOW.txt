@@ -1,20 +1,30 @@
 -----------SELECT
-SELECT B.nome 'País', A.nome 'Estado', A.sigla 'UF' FROM ESTADO A
+
+----Retorna o nome do País, Estado e sigla do Estado, relaciona as tabelas ESTADO e PAIS
+SELECT B.nome 'País', A.nome 'Estado', A.sigla 'UF' 
+FROM ESTADO A
 INNER JOIN PAIS B ON B.id_pais = A.id_pais
 
-SELECT * FROM ESTADO A
-INNER JOIN MUNICIPIO B ON B.id_estado = A.id_estado
 
+
+----Retorna todas as informações do resultado do relacionamento entre as tabelas ESTADO e MUNICIPIO
+SELECT * FROM ESTADO A
+LEFT JOIN MUNICIPIO B ON B.id_estado = A.id_estado
+
+
+
+----Retorna o nome do País, Sigla e nome do Estado concatenados, nome do Município e Bairro, relaciona as tabelas BAIRRO, MUNICIPIO, ESTADO e PAIS
 SELECT A.nome 'Pais', 
        B.sigla + ' - ' + b.nome 'Estado',
 	   C.nome 'Município',
-	   D.nome 'Bairro'
-	   
+	   D.nome 'Bairro'   
    FROM PAIS A
 INNER JOIN ESTADO    B ON B.id_pais = A.id_pais
 INNER JOIN MUNICIPIO C ON C.id_estado = B.id_estado
 INNER JOIN BAIRRO    D ON D.id_municipio = C.id_municipio
 
+
+----Retorna dados do funcionário e as informações de seu endereço de forma concatenada.
 SELECT B.nome 'Nome Funcionário',
        B.telefone 'Telefone de contato',
 	   B.email 'E-mail',
@@ -27,3 +37,15 @@ INNER JOIN BAIRRO      C ON C.id_bairro = A.id_bairro
 INNER JOIN MUNICIPIO   D ON D.id_municipio = C.id_municipio
 INNER JOIN ESTADO      E ON E.id_estado = D.id_estado
 INNER JOIN PAIS        F ON F.id_pais = E.id_pais
+
+
+
+----Retorna todos os dados resultado do relacionamento das tabelas CLIENTE, VEICULO, TIPOVEICULO, MARCAVEICULO, MODELOVEICULO, TIPOPESSOA e TAG.
+SELECT * 
+FROM CLIENTE A
+INNER JOIN VEICULO B ON B.id_cliente = A.id_cliente
+INNER JOIN TIPOVEICULO C ON C.id_tipoveiculo = B.id_tipoveiculo
+INNER JOIN MARCAVEICULO D ON D.id_marcaveiculo = B.id_marcaveiculo
+INNER JOIN MODELOVEICULO E ON E.id_modeloveiculo = B.id_modeloveiculo AND E.id_marcaveiculo = D.id_marcaveiculo
+INNER JOIN TIPOPESSOA F ON F.id_tipopessoa = A.id_tipopessoa
+INNER JOIN TAG G ON G.id_cliente = A.id_cliente AND G.id_tag = B.Id_tag
