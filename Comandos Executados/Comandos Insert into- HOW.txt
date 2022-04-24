@@ -1,0 +1,211 @@
+----INSERT
+
+INSERT INTO TIPOPLANO
+(Nome) VALUES ('Pré-pago');
+
+INSERT INTO TIPOPLANO
+(Nome) VALUES ('Mensal');
+
+INSERT INTO TIPOPLANO
+(Nome) VALUES ('Pós-pago');
+
+
+INSERT INTO TIPOPESSOA
+(Nome) VALUES ('Física');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Carro');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Moto');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Motoneta');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Furgão');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Caminhão VUC');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Caminhão Truck');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Caminhão Carreta');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Caminhão Rodotrem');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Caminhão Caçamba');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Máquinas de pequeno porte');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Máquinas de grande porte');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Mincro-ônibus');
+
+INSERT INTO TIPOVEICULO
+(Nome) VALUES ('Ônibus');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('BMW');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Audi');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('CAOA Chery');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Chevrolet');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Citroën');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Dodge');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Effa');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Ferrari');
+
+INSERT INTO MARCAVEICULO
+(Nome) VALUES ('Fiat'),('Ford'),('Ford'), 
+('Foton'),('Honda'),('Hyundai'),('Iveco'),
+('JAC'),('Jaguar'),('Jeep'),('Kia'),
+('Lamborghini'),('Land Rover'),('Lexus'),
+('Maserati'),('Lifan'),('McLaren'),
+('Mercedes-AMG'),('Mercedes-Benz'),
+('Mini'),('Mitsubishi'),('Nissan'),
+('Peugeot'),('Porsche'),('RAM'),('Renault'),
+('Rolls-Royce'),('Subaru'),('Suzuki'),
+('Toyota'),('Volkswagen'),('Volvo');
+
+INSERT INTO ESTADO
+(id_pais,Nome,sigla) 
+VALUES 
+(1,'Acre', 'AC'), (1,'Alagoas', 'AL'), (1,'Amapá', 'AP'),
+(1,'Amazonas', 'AM'), (1,'Bahia', 'BA'), (1,'Ceará', 'CE'),
+(1,'Espírito Santo', 'ES'), (1,'Goiás', 'GO'), (1,'Maranhão', 'MA'),
+(1,'Mato Grosso', 'MT'), (1,'Mato Grosso do Sul', 'MS'), (1,'Minas Gerais', 'MG'),
+(1,'Pará', 'PA'), (1,'Paraíba', 'PB'), (1,'Paraná', 'PR'),
+(1,'Pernambuco', 'PE'), (1,'Piauí', 'PI'), (1,'Rio de Janeiro', 'RJ'),
+(1,'Rio Grande do Norte', 'RN'), (1,'Rio Grande do Sul', 'RS'), (1,'Rondônia', 'RO'),
+(1,'Roraima', 'RR'), (1,'Santa Catarina', 'SC'), (1,'São Paulo', 'SP'),
+(1,'Sergipe', 'SE'), (1,'Tocantins', 'TO'), (1,'Distrito Federal', 'DF');
+
+INSERT INTO MUNICIPIO
+(id_estado,nome,codigoibge) 
+VALUES 
+(23,'Blumenau', '4202404'), (23,'Balneário Camboriú', '4202008'),
+(23,'Brusque', '4202909'), (23,'Camboriú', '4203204'),
+(23,'Chapecó', '4204202'), (23,'Criciúma', '4204608'),
+(23,'Florianópolis', '4205407'), (23,'Itajaí', '4208203'),
+(23,'Joinville', '4209102'), (23,'Jaraguá do Sul', '4208906'),
+(23,'Urupema', '4218954');
+
+INSERT INTO BAIRRO
+(id_municipio, nome) 
+VALUES 
+(8,'Praia Brava'), (8,'Cordeiros'), (8,'São João'), (8,'São Judas'),
+(8,'Centro'), (8,'Cidade Nova'), (8,'Dom Bosco'), (8,'Vila Operária'),
+(8,'Ressacada'), (8,'Cabeçudas'), (8,'São Vicente'), (8,'Fazenda');
+
+INSERT INTO MODELOVEICULO
+(id_marcaveiculo, nome) 
+VALUES 
+(4,'Corsa'), (4,'Celta'), (4,'Onix'), (4,'Prisma'),
+(4,'Captiva'), (4,'Classic'), (4,'Vectra'), (4,'Cobalt'),
+(4,'Agie'), (9,'Punto'), (9,'Siena'), (9,'Uno'),
+(9,'Palio'), (9,'Mobi'), (9,'Toro'), (9,'Strada'),
+(9,'Idea'), (9,'Palio Weekend'), (39,'Gol'), (39,'Fox'),
+(39,'UP'), (39,'Saveiro'), (39,'Voyage'), (39,'Fusca')
+;
+
+INSERT INTO FUNCIONARIO
+(cnpjcpf,nome, telefone, email, identidade, carteira_trabalho, 
+ data_nascimento, id_tipopessoa, cargo) 
+VALUES 
+('08844466677','Ana Paula Antunes Araujo', 
+ '(47) 99999-9999','ana_araujo@edu.univali.br',
+ '5252526', '5153581348139524', '1994-03-30', 1, 
+ 'Analista de Bamco de dados')
+;
+
+INSERT INTO EMPRESA
+(cnpcpf, nome) 
+VALUES 
+('12352564852346', 'ESTACIONAMENTO UNIVALI')
+;
+
+INSERT INTO FILIAL
+(id_empresa, cnpjcpf, nome) 
+VALUES 
+(1,'12352564852346', 'ESTACIONAMENTO UNIVALI ITAJAI')
+;
+
+INSERT INTO PATIO
+(id_filial,nome) 
+VALUES 
+(1,'BLOCO A'),
+(1,'BLOCO B'),
+(1,'BLOCO C'),
+(1,'BLOCO D'),
+(1,'BLOCO E')
+;
+
+INSERT INTO VAGA
+(id_patio,nome, status) 
+VALUES 
+(1,'A.001', 'Disponível'), (1,'A.002', 'Ocupada'),
+(1,'A.003', 'Disponível'), (1,'A.004', 'Disponível'),
+(1,'A.005', 'Ocupada'), (1,'A.006', 'Ocupada'),
+(1,'A.007', 'Disponível'), (1,'A.008', 'Disponível'),
+(1,'A.009', 'Ocupada'), (1,'A.010', 'Disponível'),
+(1,'A.011', 'Ocupada');
+
+
+INSERT INTO CLIENTE
+(cnpjcpf,nome,telefone,email,identidade,numero_cartao,data_nascimento,id_tipopessoa) 
+VALUES 
+('06854456677','Eduardo Ribeiro', 
+ '(47) 98591-9469','dudu_ribeiro@bol.com.br',
+ '5252526', '1362518564952347', '1990-10-3', 1)
+;
+
+INSERT INTO CONTACLIENTE
+(id_cliente,saldo_atual) 
+VALUES 
+(1, 32.56)
+;
+
+INSERT INTO ENDERECOCLIENTE
+(id_cliente,logradouro,numero,complemento,id_bairro) 
+VALUES 
+(1, 'Rua teste cliente', '1236', 'Apartamento 203 torre A', 5)
+;
+
+INSERT INTO ENDERECOFUNCIONARIO
+(id_cliente,logradouro,numero,complemento,id_bairro) 
+VALUES 
+(1, 'Rua teste', '111', 'Apartamento 601 torre 2', 9)
+;
+
+INSERT INTO VEICULO
+(id_tipoveiculo,id_marcaveiculo,Id_tag,id_cliente,id_modeloveiculo,placa,renavam) 
+VALUES 
+(1, 9, 1, 1, 15, 'AMV1362', '12352584264')
+;
+
+INSERT INTO USUARIO
+(id_funcionario,id_tipousuario,login,senha) 
+VALUES 
+(1, 1,'ana.araujo', 'testeusuario')
+;

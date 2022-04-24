@@ -1,0 +1,29 @@
+-----------SELECT
+SELECT B.nome 'País', A.nome 'Estado', A.sigla 'UF' FROM ESTADO A
+INNER JOIN PAIS B ON B.id_pais = A.id_pais
+
+SELECT * FROM ESTADO A
+INNER JOIN MUNICIPIO B ON B.id_estado = A.id_estado
+
+SELECT A.nome 'Pais', 
+       B.sigla + ' - ' + b.nome 'Estado',
+	   C.nome 'Município',
+	   D.nome 'Bairro'
+	   
+   FROM PAIS A
+INNER JOIN ESTADO    B ON B.id_pais = A.id_pais
+INNER JOIN MUNICIPIO C ON C.id_estado = B.id_estado
+INNER JOIN BAIRRO    D ON D.id_municipio = C.id_municipio
+
+SELECT B.nome 'Nome Funcionário',
+       B.telefone 'Telefone de contato',
+	   B.email 'E-mail',
+	   A.logradouro + ', número ' + A.numero + ', Bairro ' + C.nome + ', Municipio ' + D.nome + '/' + E.sigla + 
+	   ', País ' + F.nome 'Endereço do funcionário'
+FROM ENDERECOFUNCIONARIO A
+
+INNER JOIN FUNCIONARIO B ON B.id_funcionario = A.id_funcionario
+INNER JOIN BAIRRO      C ON C.id_bairro = A.id_bairro 
+INNER JOIN MUNICIPIO   D ON D.id_municipio = C.id_municipio
+INNER JOIN ESTADO      E ON E.id_estado = D.id_estado
+INNER JOIN PAIS        F ON F.id_pais = E.id_pais

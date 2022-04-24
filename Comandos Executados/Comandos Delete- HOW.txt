@@ -1,0 +1,3 @@
+--------DELETE
+DELETE FROM TAG
+WHERE id_tag = 2

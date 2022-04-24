@@ -1,0 +1,267 @@
+----CREAT TADABESE
+
+CREATE DATABASE GERENCIAESTACIONAMENTO
+
+----CREAT TABLE
+
+
+CREATE TABLE TIPOPESSOA (
+id_tipopessoa int IDENTITY(1,1) NOT NULL,
+Nome varchar(40) NOT NULL,
+PRIMARY KEY (id_tipopessoa)
+)
+
+
+CREATE TABLE TIPOPLANO (
+id_tipoplano int IDENTITY(1,1) NOT NULL,
+Nome varchar(40) NOT NULL,
+PRIMARY KEY (id_tipoplano)
+)
+
+CREATE TABLE PLANO (
+id_plano int IDENTITY(1,1) NOT NULL,
+id_tipoplano int  NOT NULL,
+valor DECIMAL(10,5)  NOT NULL,
+data_vencimento DATE NOT NULL,
+validade DATE NOT NULL,
+PRIMARY KEY (id_plano),
+FOREIGN KEY (id_tipoplano) REFERENCES TIPOPLANO(id_tipoplano)
+)
+
+CREATE TABLE CLIENTE (
+id_cliente int IDENTITY(1,1) NOT NULL,
+cnpjcpf varchar(14) NOT NULL,
+nome varchar(40) NOT NULL,
+telefone varchar(15),
+email varchar(50),
+identidade varchar(20)  NOT NULL,
+numero_cartao varchar(16) NOT NULL,
+data_nascimento DATE NOT NULL,
+id_tipopessoa int  NOT NULL,
+id_plano int ,
+    PRIMARY KEY (id_cliente),
+    FOREIGN KEY (id_tipopessoa) REFERENCES TIPOPESSOA(id_tipopessoa),
+	FOREIGN KEY (id_plano) REFERENCES PLANO(id_plano)
+)
+
+CREATE TABLE TIPOVEICULO (
+id_tipoveiculo int IDENTITY(1,1) NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_tipoveiculo)
+)
+
+CREATE TABLE  MARCAVEICULO (
+id_marcaveiculo int IDENTITY(1,1) NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_marcaveiculo)
+)
+
+CREATE TABLE MODELOVEICULO (
+id_modeloveiculo int IDENTITY(1,1) NOT NULL,
+id_marcaveiculo int  NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_modeloveiculo),
+FOREIGN KEY (id_marcaveiculo) REFERENCES MARCAVEICULO(id_marcaveiculo)
+)
+
+CREATE TABLE TAG (
+id_tag int IDENTITY(1,1) NOT NULL,
+id_cliente int  NOT NULL,
+chave_leitura varchar(40) NOT NULL,
+PRIMARY KEY (id_tag),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
+)
+
+CREATE TABLE VEICULO (
+id_veiculo int IDENTITY(1,1) NOT NULL,
+id_tipoveiculo int  NOT NULL,
+id_marcaveiculo int  NOT NULL,
+Id_tag int  NOT NULL,
+id_cliente int  NOT NULL,
+id_modeloveiculo int  NOT NULL,
+placa varchar(10) NOT NULL,
+renavam varchar(15)  NOT NULL,
+PRIMARY KEY (id_veiculo),
+FOREIGN KEY (id_tipoveiculo) REFERENCES TIPOVEICULO(id_tipoveiculo),
+FOREIGN KEY (id_marcaveiculo) REFERENCES MARCAVEICULO(id_marcaveiculo),
+FOREIGN KEY (Id_tag) REFERENCES TAG(Id_tag),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+FOREIGN KEY (id_modeloveiculo) REFERENCES MODELOVEICULO(id_modeloveiculo)
+)
+
+CREATE TABLE EMPRESA (
+id_empresa int IDENTITY(1,1) NOT NULL,
+cnpcpf varchar (14) NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_empresa)
+)
+
+CREATE TABLE FILIAL (
+id_filial int IDENTITY(1,1) NOT NULL,
+id_empresa int  NOT NULL,
+cnpjcpf varchar(14) NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_filial),
+FOREIGN KEY (id_empresa) REFERENCES EMPRESA(id_empresa)
+)
+
+CREATE TABLE PATIO(
+id_patio int IDENTITY(1,1) NOT NULL,
+id_filial int  NOT NULL,
+nome varchar(40) NOT NULL,
+PRIMARY KEY (id_patio),
+FOREIGN KEY (id_filial) REFERENCES FILIAL(id_filial)
+)
+
+CREATE TABLE VAGA(
+id_vaga int IDENTITY(1,1) NOT NULL,
+id_patio int  NOT NULL,
+nome varchar(40) NOT NULL,
+status Varchar (30) NOT NULL,
+PRIMARY KEY (id_vaga),
+FOREIGN KEY (id_patio) REFERENCES PATIO(id_patio)
+)
+
+CREATE TABLE ATENDIMENTO(
+id_atendimento int IDENTITY(1,1) NOT NULL,
+id_tag int  NOT NULL,
+id_vaga int  NOT NULL,
+inicio DATETIME,
+termino DATETIME,
+PRIMARY KEY (id_atendimento),
+FOREIGN KEY (id_tag) REFERENCES TAG(id_tag),
+FOREIGN KEY (id_vaga) REFERENCES VAGA(id_vaga)
+)
+
+CREATE TABLE CONTACLIENTE(
+id_contacliente int IDENTITY(1,1) NOT NULL,
+id_cliente int  NOT NULL,
+saldo_atual DECIMAL(10,5),
+PRIMARY KEY (id_contacliente),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
+)
+
+CREATE TABLE FATURA(
+id_fatura int IDENTITY(1,1) NOT NULL,
+id_cliente int  NOT NULL,
+data_emissao DATE ,
+data_vencimento DATE,
+valor_bruto DECIMAL (10,5),
+PRIMARY KEY (id_fatura),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente)
+)
+
+CREATE TABLE ATENDIMENTOFATURADO(
+id_atendimentofaturado int IDENTITY(1,1) NOT NULL,
+id_atendimento int  NOT NULL,
+id_fatura int  NOT NULL,
+PRIMARY KEY (id_atendimentofaturado),
+FOREIGN KEY (id_atendimento) REFERENCES ATENDIMENTO(id_atendimento),
+FOREIGN KEY (id_fatura) REFERENCES FATURA(id_fatura)
+)
+
+CREATE TABLE TIPOMOVIMENTACAO(
+id_tipomovimentacao int IDENTITY(1,1) NOT NULL,
+nome varchar(40),
+PRIMARY KEY (id_tipomovimentacao)
+)
+
+CREATE TABLE MOVIMENTACAOFINANCEIRA(
+id_movimentacaofinanceira int IDENTITY(1,1) NOT NULL,
+id_tipomovimentacao int  NOT NULL,
+data_movimentacao DATETIME NOT NULL,
+valor DECIMAL (10,5) NOT NULL,
+id_contacliente int  NOT NULL,
+PRIMARY KEY (id_movimentacaofinanceira),
+FOREIGN KEY (id_tipomovimentacao) REFERENCES TIPOMOVIMENTACAO(id_tipomovimentacao),
+FOREIGN KEY (id_contacliente) REFERENCES CONTACLIENTE(id_contacliente)
+)
+
+CREATE TABLE PAIS(
+id_pais int IDENTITY(1,1) NOT NULL,
+nome varchar(20)NOT NULL,
+PRIMARY KEY (id_pais)
+)
+
+CREATE TABLE ESTADO(
+id_estado int IDENTITY(1,1) NOT NULL,
+id_pais int  NOT NULL,
+nome varchar(20)NOT NULL,
+PRIMARY KEY (id_estado),
+FOREIGN KEY (id_pais) REFERENCES PAIS(id_pais)
+)
+
+CREATE TABLE MUNICIPIO(
+id_municipio int IDENTITY(1,1) NOT NULL,
+id_estado int  NOT NULL,
+nome varchar(20)NOT NULL,
+codigoibge varchar(10)NOT NULL,
+PRIMARY KEY (id_municipio),
+FOREIGN KEY (id_estado) REFERENCES ESTADO(id_estado)
+)
+
+CREATE TABLE BAIRRO(
+id_bairro int IDENTITY(1,1) NOT NULL,
+id_municipio int  NOT NULL,
+nome varchar(20)NOT NULL,
+PRIMARY KEY (id_bairro),
+FOREIGN KEY (id_municipio) REFERENCES MUNICIPIO(id_municipio)
+)
+
+CREATE TABLE ENDERECOCLIENTE(
+is_enderecocliente int IDENTITY(1,1) NOT NULL,
+id_cliente int  NOT NULL,
+logradouro varchar(60)NOT NULL,
+numero varchar(10),
+complemento varchar(60),
+id_bairro int  NOT NULL,
+PRIMARY KEY (is_enderecocliente),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+FOREIGN KEY (id_bairro) REFERENCES BAIRRO(id_bairro)
+)
+
+CREATE TABLE FUNCIONARIO(
+id_funcionario int IDENTITY(1,1) NOT NULL,
+cnpjcpf varchar(14) NOT NULL,
+nome varchar(60)NOT NULL,
+telefone varchar(15),
+email varchar(50),
+identidade Varchar (20)  NOT NULL,
+carteira_trabalho varchar(16)NOT NULL,
+data_nascimento DATE NOT NULL,
+id_tipopessoa int  NOT NULL,
+cargo varchar(60),
+PRIMARY KEY (id_funcionario),
+FOREIGN KEY (id_tipopessoa) REFERENCES TIPOPESSOA(id_tipopessoa)
+)
+
+CREATE TABLE ENDERECOFUNCIONARIO(
+id_enderecofuncionario int IDENTITY(1,1) NOT NULL,
+id_funcionario int  NOT NULL,
+logradouro varchar(60)NOT NULL,
+numero varchar(10),
+complemento varchar(60),
+id_bairro int  NOT NULL,
+PRIMARY KEY (id_enderecofuncionario),
+FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIO(id_funcionario),
+FOREIGN KEY (id_bairro) REFERENCES BAIRRO(id_bairro)
+)
+
+CREATE TABLE TIPOUSUARIO(
+id_tipousuario int IDENTITY(1,1) NOT NULL,
+nome varchar(30)NOT NULL,
+PRIMARY KEY (id_tipousuario)
+)
+
+CREATE TABLE USUARIO(
+id_usuario int IDENTITY(1,1) NOT NULL,
+id_funcionario int,
+id_cliente int,
+id_tipousuario int  NOT NULL,
+login varchar(20)NOT NULL,
+senha varchar(30)NOT NULL,
+PRIMARY KEY (id_usuario),
+FOREIGN KEY (id_funcionario) REFERENCES FUNCIONARIO(id_funcionario),
+FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente),
+FOREIGN KEY (id_tipousuario) REFERENCES TIPOUSUARIO(id_tipousuario)
+)
